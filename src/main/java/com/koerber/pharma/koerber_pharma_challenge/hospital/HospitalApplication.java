@@ -1,13 +1,13 @@
-package com.koerber.pharma.koerber_pharma_challenge;
+package com.koerber.pharma.koerber_pharma_challenge.hospital;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KoerberPharmaBackendChallengeApplication {
+public class HospitalApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KoerberPharmaBackendChallengeApplication.class, args);
+		SpringApplication.run(HospitalApplication.class, args);
 	}
 
 }
