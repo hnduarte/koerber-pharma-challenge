@@ -1,5 +1,6 @@
 package com.koerber.pharma.koerber_pharma_challenge.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,7 @@ public class Consult {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")

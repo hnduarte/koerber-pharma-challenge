@@ -1,5 +1,7 @@
 package com.koerber.pharma.koerber_pharma_challenge.hospital.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Symptom {
 
     @ManyToOne
     @JoinColumn(name = "pathology_id")
+    @JsonIgnore
     private Pathology pathology;
 
     public Long getId() {

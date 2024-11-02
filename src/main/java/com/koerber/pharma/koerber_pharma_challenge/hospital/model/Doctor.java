@@ -1,5 +1,6 @@
 package com.koerber.pharma.koerber_pharma_challenge.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Doctor {
     private String specialty;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Consult> consults = new ArrayList<>();
 
     public Long getId() {

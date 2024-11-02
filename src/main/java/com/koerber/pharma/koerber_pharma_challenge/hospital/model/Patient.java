@@ -1,5 +1,6 @@
 package com.koerber.pharma.koerber_pharma_challenge.hospital.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,8 +14,13 @@ public class Patient {
     private String name;
     private int age;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     private List<Consult> consults = new ArrayList<>();
+
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnore
+    private List<Pathology> pathologies = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -46,5 +52,13 @@ public class Patient {
 
     public void setConsults(List<Consult> consults) {
         this.consults = consults;
+    }
+
+    public List<Pathology> getPathologies() {
+        return pathologies;
+    }
+
+    public void setPathologies(List<Pathology> pathologies) {
+        this.pathologies = pathologies;
     }
 }
