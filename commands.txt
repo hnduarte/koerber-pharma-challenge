@@ -1,0 +1,82 @@
+Adding doctor:
+curl -X POST 'http://localhost:8000/api/doctors' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 1, "name": "Antonio", "specialty": "Dermatology"}'
+curl -X POST 'http://localhost:8000/api/doctors' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 2, "name": "Carlos", "specialty": "Ophthalmology"}'
+curl -X POST 'http://localhost:8000/api/doctors' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 3, "name": "Tania", "specialty": "Radiology"}'
+
+Adding patients:
+curl -X POST 'http://localhost:8000/api/patients' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 1, "name": "Henrique", "age": 29}'
+curl -X POST 'http://localhost:8000/api/patients' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 2, "name": "Ana", "age": 22}'
+curl -X POST 'http://localhost:8000/api/patients' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 3, "name": "Pedro", "age": 2}'
+
+Adding a consult:
+curl -X POST 'http://localhost:8000/api/consults' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 3, "patient": {"id": 1, "name": "Henrique", "age": 29}, "doctor": {"id": 1, "name": "Antonio", "specialty": "Dermatology"}}'
+curl -X POST 'http://localhost:8000/api/consults' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 2, "patient": {"id": 2, "name": "Ana", "age": 22}, "doctor": {"id": 1, "name": "Antonio", "specialty": "Dermatology"}}'
+curl -X POST 'http://localhost:8000/api/consults' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 1, "patient": {"id": 3, "name": "Pedro", "age": 2}, "doctor": {"id": 1, "name": "Antonio", "specialty": "Dermatology"}}'
+curl -X POST 'http://localhost:8000/api/consults' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 4, "patient": {"id": 1, "name": "Henrique", "age": 29}, "doctor": {"id": 3, "name": "Tania", "specialty": "Radiology"}}'
+curl -X POST 'http://localhost:8000/api/consults' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 5, "patient": {"id": 2, "name": "Ana", "age": 22}, "doctor": {"id": 3, "name": "Tania", "specialty": "Radiology"}}'
+
+Add pathologies to a patient:
+curl -X POST 'http://localhost:8000/api/patients/1/pathologies' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 1, "name": "Diabetes", "symptoms": [{"id": 1, "description": "Garganta seca"}], "patient": {"id": 1, "name": "Henrique", "age": 29}}'
+curl -X POST 'http://localhost:8000/api/patients/1/pathologies' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"id": 2, "name": "COVID19", "symptoms": [{"id": 2, "description": "Dor de cabeca"}, {"id": 3, "description": "Febre"}], "patient": {"id": 1, "name": "Henrique", "age": 29}}'
+
+Get top specialties:
+curl -X GET 'http://localhost:8000/api/doctors/top-specialties' -H 'accept: */*'
+In this case should return something like this if you follow all these commands:
+[
+  {
+    "SpecialtyName": "Dermatology",
+    "NumberOfPatients": 3
+  },
+  {
+    "SpecialtyName": "Radiology",
+    "NumberOfPatients": 2
+  }
+]
+
+Get patients with filtering(min age):
+curl -X POST 'http://localhost:8000/api/patients/search?page=0&size=10&sort=age&sort=asc' -H 'accept: */*' -H 'Content-Type: application/json' -d '{"minAge": 10}'
+Result:
+[
+  {
+    "id": 1,
+    "name": "Henrique",
+    "age": 29
+  },
+  {
+    "id": 2,
+    "name": "Ana",
+    "age": 22
+  }
+]
+
+Get patient consults and symptoms:
+curl -X GET 'http://localhost:8000/api/patients/1/consults-and-symptoms' -H 'accept: */*'
+Result:
+{
+  "Consults": [
+    {
+      "Specialty": "Dermatology",
+      "Doctor": "Antonio",
+      "ConsultId": 3
+    },
+    {
+      "Specialty": "Radiology",
+      "Doctor": "Tania",
+      "ConsultId": 4
+    }
+  ],
+  "Symptoms": [
+    {
+      "id": 1,
+      "description": "Garganta seca"
+    },
+    {
+      "id": 2,
+      "description": "Dor de cabeca"
+    },
+    {
+      "id": 3,
+      "description": "Febre"
+    }
+  ]
+}

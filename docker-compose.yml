@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -17,7 +15,7 @@ services:
       - app_logs:/fluentd/log
 
   fluentd:
-    image: fluent/fluentd:latest
+    image: fluent/fluentd:v1.14-1
     ports:
       - "24224:24224"
     volumes:

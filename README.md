@@ -4,8 +4,9 @@ Backend API for managing hospital consults, patients, and doctors, created as pa
 Instructions:
 - To install this application firstly you have to use the command mvn clean install to create the jar file, optional -DskipTests to skip the test files;
 - Once the target and jar file is created you can build the docker container with the commands : 'docker build -t koerberapi .' and 'docker run -p 8080:8080 koerberapi'
-- This will create the container and run it, from here on you can use for example postman, which is what I used to test;
-- Run 'docker-compose up' to use docker compose file for the logging.
+- This will create the container and run it, from here on you can use for example postman or the swagger api which might be easier in 'localhost:8000/swagger-ui/index.html',
+which is what I used to test;
+- Alternatively run 'docker-compose up --build' to use docker compose file for the logging functions.
 - In the request after the GET PUT POST and DELETE be sure to use 'localhost:8000' and for example to create a patient '/api/patients' I will explain in more detail in the next points;
 - To use this software firstly let's go over the basic functions, we can add patients, doctors consults and pathologies to the patients;
 - Firstly use the Post /api/patients to add Patients;
@@ -19,6 +20,7 @@ the Get /api/patients/{id}/consults-and-symptoms we should get 2 lists one with 
 - Finally, in the Post /api/patients/search we can put some parameters like page, size, sort, minimum age and name to get the patients that fit these query
 parameters;
 - Lastly, there are some other basic methods like delete and get for each of the controllers in case the hospital would want more basic operations in their database.
+- I have provided some curl commands in the file commands for testing.
 
 Summary of this software:
 - Log the consults that happen in the hospital to keep track of the patient's consults, pathologies and symptoms.
