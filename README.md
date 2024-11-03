@@ -2,6 +2,11 @@
 Backend API for managing hospital consults, patients, and doctors, created as part of the Koerber Pharma technical exercise.
 
 Instructions:
+- To install this application firstly you have to use the command mvn clean install to create the jar file, optional -DskipTests to skip the test files;
+- Once the target and jar file is created you can build the docker container with the commands : 'docker build -t koerberapi .' and 'docker run -p 8080:8080 koerberapi'
+- This will create the container and run it, from here on you can use for example postman, which is what I used to test;
+- Run 'docker-compose up' to use docker compose file for the logging.
+- In the request after the GET PUT POST and DELETE be sure to use 'localhost:8000' and for example to create a patient '/api/patients' I will explain in more detail in the next points;
 - To use this software firstly let's go over the basic functions, we can add patients, doctors consults and pathologies to the patients;
 - Firstly use the Post /api/patients to add Patients;
 - Use the Post /api/doctors to add doctors;
