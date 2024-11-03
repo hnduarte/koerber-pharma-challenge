@@ -8,28 +8,59 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Consult service.
+ */
 @Service
 public class ConsultService {
 
     @Autowired
     private ConsultRepository consultRepository;
 
+    /**
+     * Gets all consults.
+     *
+     * @return the all consults
+     */
     public List<Consult> getAllConsults() {
         return consultRepository.findAll();
     }
 
+    /**
+     * Gets consult by id.
+     *
+     * @param id the id
+     * @return the consult by id
+     */
     public Optional<Consult> getConsultById(Long id) {
         return consultRepository.findById(id);
     }
 
+    /**
+     * Save consult.
+     *
+     * @param consult the consult
+     * @return the consult
+     */
     public Consult saveConsult(Consult consult) {
         return consultRepository.save(consult);
     }
 
+    /**
+     * Delete consult.
+     *
+     * @param id the id
+     */
     public void deleteConsult(Long id) {
         consultRepository.deleteById(id);
     }
 
+    /**
+     * Gets consults by patient id.
+     *
+     * @param patientId the patient id
+     * @return the consults by patient id
+     */
     public List<Consult> getConsultsByPatientId(Long patientId) {
         return consultRepository.findByPatientId(patientId);
     }

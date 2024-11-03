@@ -7,30 +7,59 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * The type Doctor service.
+ */
 @Service
 public class DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
 
+    /**
+     * Get all doctors list.
+     *
+     * @return the list
+     */
     public List<Doctor> getAllDoctors(){
         return doctorRepository.findAll();
     }
 
+    /**
+     * Get doctor by id.
+     *
+     * @param id the id
+     * @return the optional
+     */
     public Optional<Doctor> getDoctorById(Long id){
         return doctorRepository.findById(id);
     }
 
+    /**
+     * Save doctor.
+     *
+     * @param doctor the doctor
+     * @return the doctor
+     */
     public Doctor saveDoctor(Doctor doctor){
         return doctorRepository.save(doctor);
     }
 
+    /**
+     * Delete doctor.
+     *
+     * @param id the id
+     */
     public void deleteDoctor(Long id){
         doctorRepository.deleteById(id);
     }
 
+    /**
+     * Gets top specialties (the specialties with at least 2 patients).
+     *
+     * @return the top specialties
+     */
     public List<Map<String, Object>> getTopSpecialties() {
         // Step 1: Get all doctors and initialize a Map to count unique patients per specialty
         List<Doctor> doctors = doctorRepository.findAll();
@@ -59,6 +88,12 @@ public class DoctorService {
         return topSpecialties;
     }
 
+    /**
+     * Method to check if doctor exists by id.
+     *
+     * @param id the id
+     * @return the boolean
+     */
     public boolean existsById(Long id) {
         return doctorRepository.existsById(id);
     }

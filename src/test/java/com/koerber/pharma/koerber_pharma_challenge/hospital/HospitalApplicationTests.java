@@ -8,12 +8,18 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * The type Hospital application tests.
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class HospitalApplicationTests {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
 
+	/**
+	 * Test get all patients' performance.
+	 */
 	@Test
 	void testGetAllPatientsPerformance() {
 		long startTime = System.currentTimeMillis();

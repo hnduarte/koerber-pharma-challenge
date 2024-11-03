@@ -12,41 +12,88 @@ import jakarta.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The type Patient service.
+ */
 @Service
 public class PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
 
+    /**
+     * Get all patients list.
+     *
+     * @return the list
+     */
     public List<Patient> getAllPatients(){
         return patientRepository.findAll();
     }
 
+    /**
+     * Get patient by id.
+     *
+     * @param id the id
+     * @return the optional
+     */
     public Optional<Patient> getPatientById(Long id){
         return patientRepository.findById(id);
     }
 
+    /**
+     * Save patient.
+     *
+     * @param patient the patient
+     * @return the patient
+     */
     public Patient savePatient(Patient patient){
         return patientRepository.save(patient);
     }
 
+    /**
+     * Delete patient.
+     *
+     * @param id the id
+     */
     public void deletePatient(Long id) {
         patientRepository.deleteById(id);
     }
 
+    /**
+     * Gets filtered patients.
+     *
+     * @param name     the name
+     * @param minAge   the min age
+     * @param pageable the pageable
+     * @return the filtered patients
+     */
     public Page<Patient> getFilteredPatients(String name, Integer minAge, Pageable pageable) {
         return patientRepository.findAll((root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+
+            //Verify name and minAge to be used for filtering
             if (name != null) predicates.add(cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
             if (minAge != null)  predicates.add(cb.greaterThanOrEqualTo(root.get("age"), minAge));
             return cb.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }
 
+    /**
+     * Method to check if Patient exists by id.
+     *
+     * @param id the id
+     * @return the boolean
+     */
     public boolean existsById(Long id) {
         return patientRepository.existsById(id);
     }
 
+    /**
+     * Gets patient consults and symptoms.
+     *
+     * @param patientId the patient id
+     * @return the patient consults and symptoms
+     */
     public Optional<Map<String, Object>> getPatientConsultsAndSymptoms(Long patientId) {
         Optional<Patient> patientOpt = patientRepository.findById(patientId);
         if (patientOpt.isEmpty()) {

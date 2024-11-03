@@ -1,0 +1,5 @@
+ALTER TABLE patients ADD COLUMN updated_at TIMESTAMP;
+ALTER TABLE doctors ADD COLUMN updated_at TIMESTAMP;
+ALTER TABLE consults ADD COLUMN updated_at TIMESTAMP;
+ALTER TABLE pathologies ADD COLUMN updated_at TIMESTAMP;
+ALTER TABLE symptoms ADD COLUMN updated_at TIMESTAMP;

@@ -36,6 +36,8 @@ Objectives:
     - Get patient consults and symptoms;
     - Get top specialties;
     - Get all patients;
+- For the sake of testing in the swagger page some methods that weren't specified were still kept, like add patient, delete patient and so on,
+so it was possible to do various operations and check if the 4 main ones were working correctly.
 
 Get patient consults and symptoms should work on a specific patient and return a list of all the consults the patient had. Also needs
 to return the symptoms.
@@ -55,7 +57,7 @@ This section will summarize the changes as they will be added in each commit:
     - Initial commits with the structure of the project;
     - Creation of the entities that were identified in the project statement and its respective repositories
     - Creation of the README and some information was filled to provide a better user experience.
-v2:
+- v2:
     - Added the services and controllers with the general endpoints to test if everything was working correctly;
     - Modified the controllers and services to follow the objectives of the project;
     - Creation of the test classes to test some of the controllers and services;
@@ -64,7 +66,10 @@ v2:
     - Creation of a performance test to test the Get in the patient controller;
     - Checked the OpenAPI swagger page and manually tested the endpoints;
     - Corrected bugs related to the logic of the controllers, services and models, added some JsonIgnore to validate the correct json we want to use;
-    - Added a instructions section in this document.
+    - Added an instructions section in this document.
+- v3:
+    - Added javadoc and some comments for better understanding of the controllers and services.
+    - Added the flyway dependency and db migration package.
 
 - Entities for the database:
     - Patient;

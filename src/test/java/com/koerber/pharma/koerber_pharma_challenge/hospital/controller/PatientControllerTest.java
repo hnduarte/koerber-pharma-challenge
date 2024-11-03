@@ -18,6 +18,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Test class for the Patient controller.
+ */
 @WebMvcTest(PatientController.class)
 public class PatientControllerTest {
 
@@ -33,6 +36,11 @@ public class PatientControllerTest {
     @MockBean
     private ConsultService consultService;
 
+    /**
+     * Test get all patients.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void testGetAllPatients() throws Exception {
         Patient patient = new Patient();
@@ -49,6 +57,11 @@ public class PatientControllerTest {
                 .andExpect(jsonPath("$[0].age").value(29));
     }
 
+    /**
+     * Test get patient by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void testGetPatientById() throws Exception {
         Patient patient = new Patient();
@@ -65,6 +78,11 @@ public class PatientControllerTest {
                 .andExpect(jsonPath("$.age").value(29));
     }
 
+    /**
+     * Test create patient.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void testCreatePatient() throws Exception {
         Patient patient = new Patient();
@@ -83,6 +101,11 @@ public class PatientControllerTest {
                 .andExpect(jsonPath("$.age").value(29));
     }
 
+    /**
+     * Test delete patient.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void testDeletePatient() throws Exception {
         doNothing().when(patientService).deletePatient(1L);

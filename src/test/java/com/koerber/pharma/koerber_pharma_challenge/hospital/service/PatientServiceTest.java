@@ -16,6 +16,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for Patient service.
+ */
 @ExtendWith(MockitoExtension.class)
 public class PatientServiceTest {
 
@@ -27,6 +30,9 @@ public class PatientServiceTest {
 
     private Patient patient;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         patient = new Patient();
@@ -35,6 +41,9 @@ public class PatientServiceTest {
         patient.setAge(29);
     }
 
+    /**
+     * Test get all patients.
+     */
     @Test
     void testGetAllPatients() {
         when(patientRepository.findAll()).thenReturn(Arrays.asList(patient));
@@ -44,6 +53,9 @@ public class PatientServiceTest {
         verify(patientRepository, times(1)).findAll();
     }
 
+    /**
+     * Test get patient by id.
+     */
     @Test
     void testGetPatientById() {
         Patient anotherPatient = new Patient();
@@ -59,6 +71,9 @@ public class PatientServiceTest {
         verify(patientRepository, times(1)).findById(2L);
     }
 
+    /**
+     * Test save patient.
+     */
     @Test
     void testSavePatient() {
         when(patientRepository.save(patient)).thenReturn(patient);
@@ -70,6 +85,9 @@ public class PatientServiceTest {
         verify(patientRepository, times(1)).save(patient);
     }
 
+    /**
+     * Test delete patient.
+     */
     @Test
     void testDeletePatient() {
         patientService.deletePatient(1L);

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Consult controller.
+ */
 @RestController
 @RequestMapping("/api/consults")
 public class ConsultController {
@@ -25,11 +28,22 @@ public class ConsultController {
     @Autowired
     private PatientService patientService;
 
+    /**
+     * Gets all consults.
+     *
+     * @return the all consults
+     */
     @GetMapping
     public List<Consult> getAllConsults() {
         return consultService.getAllConsults();
     }
 
+    /**
+     * Gets consult by id.
+     *
+     * @param id the id
+     * @return the consult by id
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Consult> getConsultById(@PathVariable Long id) {
         Optional<Consult> consult = consultService.getConsultById(id);
@@ -37,6 +51,12 @@ public class ConsultController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    /**
+     * Create consult response entity.
+     *
+     * @param consult the consult
+     * @return the response entity consult
+     */
     @PostMapping
     public ResponseEntity<Consult> createConsult(@RequestBody Consult consult) {
         if (consult.getDoctor() == null || consult.getPatient() == null) {
@@ -53,6 +73,13 @@ public class ConsultController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedConsult);
     }
 
+    /**
+     * Update consult response entity.
+     *
+     * @param id      the id
+     * @param consult the consult
+     * @return the response entity consult
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Consult> updateConsult(@PathVariable Long id, @RequestBody Consult consult) {
         consult.setId(id);
@@ -60,6 +87,12 @@ public class ConsultController {
         return ResponseEntity.ok(updatedConsult);
     }
 
+    /**
+     * Delete consult response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteConsult(@PathVariable Long id) {
         consultService.deleteConsult(id);

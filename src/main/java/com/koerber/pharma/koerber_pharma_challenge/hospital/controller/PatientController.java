@@ -3,7 +3,6 @@ package com.koerber.pharma.koerber_pharma_challenge.hospital.controller;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.dto.PatientSearchRequest;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Consult;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Patient;
-import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Symptom;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.ConsultService;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.PathologyService;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.PatientService;
@@ -17,8 +16,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * The type Patient controller.
+ */
 @RestController
 @RequestMapping("/api/patients")
 public class PatientController {
@@ -32,6 +33,15 @@ public class PatientController {
     @Autowired
     private PathologyService pathologyService;
 
+    /**
+     * Gets filtered patients.
+     *
+     * @param searchRequest the search request
+     * @param page          the page
+     * @param size          the size
+     * @param sort          the sort
+     * @return the filtered patients
+     */
     @PostMapping("/search")
     public ResponseEntity<List<Patient>> getFilteredPatients(
             @RequestBody PatientSearchRequest searchRequest,
@@ -50,6 +60,12 @@ public class PatientController {
         return ResponseEntity.ok(patients.getContent());
     }
 
+    /**
+     * Gets patient consults and symptoms.
+     *
+     * @param id the id
+     * @return the patient consults and symptoms
+     */
     @GetMapping("/{id}/consults-and-symptoms")
     public ResponseEntity<Map<String, Object>> getPatientConsultsAndSymptoms(@PathVariable("id") Long id) {
         Optional<Map<String, Object>> response = patientService.getPatientConsultsAndSymptoms(id);
@@ -57,23 +73,47 @@ public class PatientController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    /**
+     * Get all patients list.
+     *
+     * @return the list
+     */
     @GetMapping("/all")
     public List<Patient> getAllPatients(){
         return patientService.getAllPatients();
     }
 
+    /**
+     * Gets patient by id.
+     *
+     * @param id the id
+     * @return the patient by id
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id){
         Optional<Patient> patient = patientService.getPatientById(id);
         return patient.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    /**
+     * Create patient response entity.
+     *
+     * @param patient the patient
+     * @return the response entity
+     */
     @PostMapping
     public ResponseEntity<Patient> createPatient(@RequestBody Patient patient){
         Patient newPatient = patientService.savePatient(patient);
         return ResponseEntity.status(HttpStatus.CREATED).body(newPatient);
     }
 
+    /**
+     * Update patient response entity.
+     *
+     * @param id      the id
+     * @param patient the patient
+     * @return the response entity
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
         patient.setId(id);
@@ -81,12 +121,24 @@ public class PatientController {
         return ResponseEntity.ok(updatedPatient);
     }
 
+    /**
+     * Delete patient response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable("id") Long id) {
         patientService.deletePatient(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    /**
+     * Gets patient consults.
+     *
+     * @param id the id
+     * @return the patient consults
+     */
     @GetMapping("/{id}/consults")
     public ResponseEntity<List<Consult>> getPatientConsults(@PathVariable("id") Long id) {
         Optional<Patient> patient = patientService.getPatientById(id);
