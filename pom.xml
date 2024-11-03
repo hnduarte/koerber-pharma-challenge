@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.koerber.pharma</groupId>
 	<artifactId>koerber-pharma-challenge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Koerber Pharma Backend Challenge</name>
 	<description>Backend API for managing hospital consults, patients, and doctors for the Koerber Pharma challenge.</description>
 	<url/>
