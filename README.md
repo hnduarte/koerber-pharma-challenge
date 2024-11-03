@@ -77,6 +77,8 @@ This section will summarize the changes as they will be added in each commit:
 - v3:
     - Added javadoc and some comments for better understanding of the controllers and services.
     - Added the flyway dependency and db migration package.
+    - Added a command file for anyone to use some commands and test all the functionalities asked.
+    - Added dockerfile and docker compose with logging and tested the app using docker on a different machine.
 
 - Entities for the database:
     - Patient;
