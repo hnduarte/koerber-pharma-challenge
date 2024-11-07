@@ -6,6 +6,11 @@ import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Patient;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.ConsultService;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.PathologyService;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,6 +27,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api/patients")
+@Tag(name = "Patient", description = "Operations related to patients")
 public class PatientController {
 
     @Autowired
@@ -90,7 +96,12 @@ public class PatientController {
      * @return the patient by id
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id){
+    @Operation(summary = "Get Patient by ID", description = "Retrieve detailed information about a specific patient by their ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved patient"),
+            @ApiResponse(responseCode = "404", description = "Patient not found")
+    })
+    public ResponseEntity<Patient> getPatientById(@Parameter(description = "ID of the patient to retrieve") @PathVariable("id") Long id){
         Optional<Patient> patient = patientService.getPatientById(id);
         return patient.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

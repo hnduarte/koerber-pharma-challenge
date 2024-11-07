@@ -1,17 +1,22 @@
 package com.koerber.pharma.koerber_pharma_challenge.hospital.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Schema(description = "Patient entity representing a hospital patient")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier for the patient", example = "1")
     private Long id;
+    @Schema(description = "Full name of the patient", example = "John Doe")
     private String name;
+    @Schema(description = "Age of the patient", example = "30")
     private int age;
 
     @OneToMany(mappedBy = "patient")

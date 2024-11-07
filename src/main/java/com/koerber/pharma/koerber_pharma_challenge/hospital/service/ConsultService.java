@@ -4,6 +4,7 @@ import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Consult;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.repository.ConsultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,19 @@ public class ConsultService {
      * @param consult the consult
      * @return the consult
      */
+    @Transactional
     public Consult saveConsult(Consult consult) {
+        /*
+        Consult consult = mapToEntity(consultDTO);
+    consult = consultRepository.save(consult);
+
+    // Update doctor's availability status after consult creation
+    Doctor doctor = consult.getDoctor();
+    doctor.setAvailable(false);
+    doctorRepository.save(doctor);
+
+    return mapToDTO(consult);
+         */
         return consultRepository.save(consult);
     }
 

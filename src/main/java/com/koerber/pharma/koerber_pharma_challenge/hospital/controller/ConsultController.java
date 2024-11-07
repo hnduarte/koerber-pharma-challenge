@@ -1,6 +1,8 @@
 package com.koerber.pharma.koerber_pharma_challenge.hospital.controller;
 
 import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Consult;
+import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Doctor;
+import com.koerber.pharma.koerber_pharma_challenge.hospital.model.Patient;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.ConsultService;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.DoctorService;
 import com.koerber.pharma.koerber_pharma_challenge.hospital.service.PatientService;
@@ -60,14 +62,20 @@ public class ConsultController {
     @PostMapping
     public ResponseEntity<Consult> createConsult(@RequestBody Consult consult) {
         if (consult.getDoctor() == null || consult.getPatient() == null) {
-            return ResponseEntity.badRequest().body(null);
+            throw new IllegalArgumentException("Consult must have a doctor and a patient.");
+            //return ResponseEntity.badRequest().body(null);
         }
 
         // Validate doctor and patient existence
-        if (!doctorService.existsById(consult.getDoctor().getId()) ||
+       /* if (!doctorService.existsById(consult.getDoctor().getId()) ||
                 !patientService.existsById(consult.getPatient().getId())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        }*/
+
+       /* Doctor doctor = doctorRepository.findById(consultDTO.getDoctorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor not found"));
+        Patient patient = patientRepository.findById(consultDTO.getPatientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));*/
 
         Consult savedConsult = consultService.saveConsult(consult);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedConsult);
